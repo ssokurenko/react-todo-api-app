@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { getData } from './services/Data.service';
+import { TodoItem } from './components/TodoItem';
 
 class App extends React.Component {
 
@@ -68,7 +69,7 @@ class App extends React.Component {
               <ul className='list-group'>
                 {items.map(
                   item => (
-                    <li className='list-group-item' key={item.id}>{item.title}</li>
+                    <TodoItem key={item.id} title={item.title} completed={item.completed}/>
                   ))}
               </ul>
             </div>
