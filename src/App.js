@@ -2,6 +2,9 @@ import React from 'react';
 import './App.css';
 import { getData } from './services/Data.service';
 import { TodoItem } from './components/TodoItem';
+import { AddItem } from './components';
+
+import uuid from 'uuid';
 
 class App extends React.Component {
 
@@ -36,6 +39,18 @@ class App extends React.Component {
       );
   }
 
+  addItem = text => {
+    const newItem = {
+      id: uuid.v4(),
+      title: text,
+      completed: false
+    }
+
+    this.setState({
+      items: [newItem, ...this.state.items]
+    });
+  }
+
   render() {
     const { isLoaded, isError, items } = this.state;
     let errorMessage = null;
@@ -66,10 +81,11 @@ class App extends React.Component {
             <div className='col-md-12 mt-2 mb-4'>
               {spinner}
               {errorMessage}
+              <AddItem onAdditem={this.addItem} />
               <ul className='list-group'>
                 {items.map(
                   item => (
-                    <TodoItem key={item.id} title={item.title} completed={item.completed}/>
+                    <TodoItem key={item.id} title={item.title} completed={item.completed} />
                   ))}
               </ul>
             </div>
